@@ -33,7 +33,7 @@ class TokenImage:
         }
         
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'Image':
+    def from_dict(cls, data: Dict[str, Any]) -> 'TokenImage':
         """Create an Image instance from a dictionary"""
         # Handle required fields
         image_data = {
