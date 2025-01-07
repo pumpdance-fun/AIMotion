@@ -132,7 +132,22 @@ class ChromaDatabase:
 
 if __name__ == "__main__":
     db = ChromaDatabase()
+    # Create collections
+    db.create_collection("dance_videos")
+    db.create_collection("token_images")
 
+    # Insert data
+    dance = Dance(
+        id="1",
+        file_path="/path/to/dance2.mp4",
+        description="Hip hop dance routine",
+        style="Hip Hop",
+        dancer="John Doe",
+        music="Beat It",
+        resolution="1920x1080",
+        duration=180  # 3 minutes in seconds
+    )
+    db.insert_dances([dance], "dance_videos")
     # Query dances
     dances = db.query_dances(
         collection_name="dance_videos",
@@ -140,6 +155,16 @@ if __name__ == "__main__":
     )
     print(dances)
 
+    # Insert images
+    image = TokenImage(
+        id="1",
+        file_path="/path/to/image.jpg",
+        description="A frog pepe",
+        width=1920,
+        height=1080,
+        format="png",
+    )
+    db.insert_images([image], "token_images")
     # Query images
     images = db.query_images(
         collection_name="token_images",
