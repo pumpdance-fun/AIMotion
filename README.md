@@ -28,3 +28,20 @@ Example code to insert data into the collections is provided in `database.py`.
 
 4. Install `redis` server: `sudo apt-get install redis-server`
 
+5. Clone and configure `MusePose`:
+    1. Clone the repository: `git clone https://github.com/pumpdance-fun/MusePose.git`
+    2. Follow the instructions in the README.md file to install the dependencies and configure the environment.
+
+## Run the project
+
+1. Run `python generation_service.py` in `MusePose` to start the generation service.
+2. Run `chroma run --path /db_path` to start the chromadb server.
+3. Run `python generation_agent.py` in `AIMotion` to interact with the generation agent and submit a generation task.
+
+## Example 
+
+Input: Create a video where pepe is dancing hiphop
+
+Output: 
+
+![Generated Video](./assets/pepe_hiphop.gif)

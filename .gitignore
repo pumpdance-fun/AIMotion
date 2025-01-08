@@ -171,3 +171,4 @@ cython_debug/
 .pypirc
 /agent_workspace/
 /aimotion_workspace/
+.DS_Store
