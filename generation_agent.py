@@ -84,9 +84,10 @@ class VideoGenerationAgent(Agent):
         result = self.video_generation_client.get_result(task_id, timeout=300)  # 5 minute timeout
         if result:
             print(f"Task completed: {result}")
+            return result["output_path"]
         else:
             print("Task timed out")
-
+            raise Exception("Video generation timed out")
         
 
 if __name__ == "__main__":

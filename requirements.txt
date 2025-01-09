@@ -1,3 +1,4 @@
 swarms
 chromadb
 redis
+python-telegram-bot
