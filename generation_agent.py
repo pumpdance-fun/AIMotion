@@ -6,8 +6,23 @@ import os
 import json
 from database import ChromaDatabase
 from generation_client import VideoGenerationClient
+import threading
 
 load_dotenv()
+
+class SharedConnections:
+    """Singleton class to manage shared database and Redis connections"""
+    _instance = None
+    _lock = threading.Lock()
+
+    def __new__(cls):
+        if cls._instance is None:
+            with cls._lock:
+                if cls._instance is None:
+                    cls._instance = super(SharedConnections, cls).__new__(cls)
+                    cls._instance.db = ChromaDatabase()
+                    cls._instance.video_generation_client = VideoGenerationClient()
+        return cls._instance
 
 SYSTEM_PROMPT = "Your task is to analyze user's input to identify the requirements for the following dance video generation task. Based on the user input, you need to analyze and extract key information including the subject (dancer), dance name if mentioned, dance style if mentioned, and other mentioned requirements. Once extract all information, output them in a json format."
 
@@ -34,8 +49,9 @@ class VideoGenerationAgent(Agent):
             )
         super().__init__(agent_name=name, system_prompt=system_prompt, model_name=model_name, llm=llm)
         self.description = description
-        self.db = ChromaDatabase()
-        self.video_generation_client = VideoGenerationClient()
+        shared = SharedConnections()
+        self.db = shared.db
+        self.video_generation_client = shared.video_generation_client
     def run(self, task: str):
         """
         Run the agent on a task.
